@@ -39,6 +39,10 @@ under the License.
   </repositories>
 
   <distributionManagement>
+    <snapshotRepository>
+      <id>it-remote</id>
+      <url>file:${remoteRepository}</url>
+    </snapshotRepository>
     <repository>
       <id>it-remote</id>
       <url>file:${remoteRepository}</url>
