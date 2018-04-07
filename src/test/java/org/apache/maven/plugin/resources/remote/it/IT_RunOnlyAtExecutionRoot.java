@@ -58,21 +58,27 @@ public class IT_RunOnlyAtExecutionRoot
         // Might reconsider how to write a better testcase.
         // verifier.deleteArtifacts( "org.apache.maven.plugin.rresource.it.mrr41" );
 
-        verifier.executeGoal( "generate-resources" );
-        verifier.verifyErrorFreeLog();
-        verifier.resetStreams();
+        try
+        {
+            verifier.executeGoal( "generate-resources" );
+        }
+        catch ( VerificationException e )
+        {
+            verifier.resetStreams();
 
-        String depResource = "target/maven-shared-archive-resources/DEPENDENCIES";
-        File output = new File( dir, depResource );
-        assertTrue( output.exists() );
+            String depResource = "target/maven-shared-archive-resources/DEPENDENCIES";
+            File output = new File( dir, depResource );
+            assertTrue( output.exists() );
 
-        assertFalse( new File( dir, "child1/" + depResource ).exists() );
-        assertFalse( new File( dir, "child2/" + depResource ).exists() );
+            assertFalse( new File( dir, "child1/" + depResource ).exists() );
+            assertFalse( new File( dir, "child2/" + depResource ).exists() );
 
-        String content = FileUtils.fileRead( output );
+            String content = FileUtils.fileRead( output );
 
-        assertTrue( content.contains( "Dependency Id: org.apache.maven.plugin.rresource.it.mrr41:release:1.0" ) );
-        assertTrue( content.contains( "Dependency Id: org.apache.maven.plugin.rresource.it.mrr41:snapshot:1.0-SNAPSHOT" ) );
+            assertTrue( content.contains( "Dependency Id: org.apache.maven.plugin.rresource.it.mrr41:release:1.0" ) );
+            assertTrue( content.contains( "Dependency Id: org.apache.maven.plugin.rresource.it.mrr41:snapshot:1.0-SNAPSHOT" ) );
+
+        }
     }
 
 }
