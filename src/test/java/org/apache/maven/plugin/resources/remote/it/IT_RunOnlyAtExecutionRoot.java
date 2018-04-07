@@ -43,9 +43,9 @@ public class IT_RunOnlyAtExecutionRoot
         Verifier verifier;
 
         verifier = TestUtils.newVerifier( new File( dir, "resource-projects" ) );
+        verifier.setLogFileName( "deploy.log" );
         verifier.executeGoal( "deploy" );
         verifier.verifyErrorFreeLog();
-        verifier.setLogFileName( "deploy.log" );
         verifier.resetStreams();
 
         verifier = TestUtils.newVerifier( dir );
