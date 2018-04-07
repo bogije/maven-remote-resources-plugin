@@ -21,7 +21,6 @@ package org.apache.maven.plugin.resources.remote.it.support;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -41,7 +40,7 @@ public class TestUtils
             throw new IOException( "Cannot find test directory: " + name );
         }
 
-        return new File( new URI( resource.toExternalForm() ).normalize().getPath() );
+        return new File( resource.toURI().normalize().getPath() );
     }
 
     public static File getBaseDir()
